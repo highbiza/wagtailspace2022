@@ -3,9 +3,8 @@
 
 {% block inner %}
 <div class="col-lg-8 ps-0 mx-auto">
-	<h1 class="display-5 fw-bold mb-0">{{ page.title }}</h1>
-	<small class="text-small my-3 d-block">{{ self.date|date:"d F Y" }} <i class="ball mx-2"></i> News</small>
-	<img src="{{self.image.file.url}}" />
+	<h1 class="display-5 fw-bold mb-5">{{ page.title }}</h1>
+	<iframe width="100%" height="400" src="https://www.youtube.com/embed/{{ self.youtube }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 	<div class="row mb-5">
 	{% for slide in self.galleryitems.all %}

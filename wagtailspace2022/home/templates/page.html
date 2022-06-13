@@ -2,7 +2,13 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'wagtailspace2022/js/wagtailspace2022.css' %}">
+<link rel="stylesheet" href="{% static 'js/wagtailspace2022.css' %}">
+<link rel="stylesheet" href="{% static 'css/wagtailspace2022.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
+<div class="container my-5">
+	{% block inner %}
+	{% endblock %}
+</div>
+{% endblock %}

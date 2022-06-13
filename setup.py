@@ -20,7 +20,6 @@ setup(
     # include all packages in the egg, except the test package.
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     # for avoiding conflict have one namespace for all apc related eggs.
-    namespace_packages=['namespace_package_name'],
     # include non python files
     include_package_data=True,
     zip_safe=False,
@@ -28,20 +27,6 @@ setup(
     install_requires=[
         'setuptools',
         'wagtail<3.0',
-        'django<4',
-        'wagtail-roadrunner'
-    ],
-    # mark test target to require extras.
-    extras_require = {
-        'test':  ["mock"]
-    },
-    # generate scripts
-    entry_points={
-        'console_scripts':[
-            'script_name = name.module:main',
-        ]
-    },
-    scripts=[
-        'script_name',
-    ],
+        'django<4'
+    ]
 )

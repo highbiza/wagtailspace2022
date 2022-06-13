@@ -1,5 +1,25 @@
 {% extends "page.html" %}
+{% load wagtailcore_tags %}
 
-{% block content %}
+{% block inner %}
+<h1>{{ page.title }}</h1>
 
+<div class="my-5 row">
+{% for slide in self.galleryitems.all %}
+	<div class="col-xl-3 col-md-6">
+		<div class="gallery-item">
+			<img src="{{slide.image.file.url}}" class="gallery-image" />
+		</div>
+		<div class="mt-3">
+			<i>{{ slide.caption|richtext }}</i>
+		</div>
+	</div>
+{% endfor %}
+</div>
+
+{% for block in self.body %}
+	<div class="my-3 block-{{ block.block_type }}">
+		{% include_block block %}
+	</div>
+{% endfor %}
 {% endblock %}
