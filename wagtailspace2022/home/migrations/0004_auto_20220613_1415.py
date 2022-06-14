@@ -9,34 +9,50 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0003_galleryitem_gallerypage_newspage_videopage'),
+        ("home", "0003_galleryitem_gallerypage_newspage_videopage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='videopage',
-            name='youtube_embed',
-            field=models.TextField(default=''),
+            model_name="videopage",
+            name="youtube_embed",
+            field=models.TextField(default=""),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='gallerypage',
-            name='body',
-            field=wagtail.core.fields.StreamField([('heading', wagtail.core.blocks.CharBlock()), ('paragraph', wagtail.core.blocks.RichTextBlock())]),
+            model_name="gallerypage",
+            name="body",
+            field=wagtail.core.fields.StreamField(
+                [
+                    ("heading", wagtail.core.blocks.CharBlock()),
+                    ("paragraph", wagtail.core.blocks.RichTextBlock()),
+                ]
+            ),
         ),
         migrations.AlterField(
-            model_name='newspage',
-            name='body',
-            field=wagtail.core.fields.StreamField([('heading', wagtail.core.blocks.CharBlock()), ('paragraph', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())]),
+            model_name="newspage",
+            name="body",
+            field=wagtail.core.fields.StreamField(
+                [
+                    ("heading", wagtail.core.blocks.CharBlock()),
+                    ("paragraph", wagtail.core.blocks.RichTextBlock()),
+                    ("image", wagtail.images.blocks.ImageChooserBlock()),
+                ]
+            ),
         ),
         migrations.AlterField(
-            model_name='videopage',
-            name='body',
-            field=wagtail.core.fields.StreamField([('heading', wagtail.core.blocks.CharBlock()), ('paragraph', wagtail.core.blocks.RichTextBlock())]),
+            model_name="videopage",
+            name="body",
+            field=wagtail.core.fields.StreamField(
+                [
+                    ("heading", wagtail.core.blocks.CharBlock()),
+                    ("paragraph", wagtail.core.blocks.RichTextBlock()),
+                ]
+            ),
         ),
         migrations.AlterField(
-            model_name='videopage',
-            name='youtube',
+            model_name="videopage",
+            name="youtube",
             field=models.CharField(max_length=1024),
         ),
     ]
