@@ -28,6 +28,8 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
+        {% include "header.html" %}
+
         {% block content %}{% endblock %}
 
         {# Global javascript #}
