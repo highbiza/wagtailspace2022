@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+
+                <div class="gallery-item">
+                    <img src="{{value.image.file.url}}" class="gallery-image" />
+                </div>
+                <div class="gallery-caption">
+                    <i>{{ value.caption|richtext }}</i>
+                    {% if value.buttons %}
+                    {% include_block value.buttons %}
+                    {% endif %}
+                </div>

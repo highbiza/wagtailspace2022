@@ -12,6 +12,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.models import Page, Orderable
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
@@ -108,3 +109,100 @@ class GalleryItem(Orderable):
     caption = RichTextField(blank=True)
 
     panels = [ImageChooserPanel("image"), FieldPanel("caption")]
+
+
+class GalleryPageButton(blocks.StructBlock):
+    page = blocks.PageChooserBlock()
+    label = blocks.CharBlock()
+
+    class Meta:
+        template = "blocks/gallerypagebutton.html"
+
+class GalleryLinkButton(blocks.StructBlock):
+    link = blocks.URLBlock()
+    label = blocks.CharBlock()
+
+    class Meta:
+        template = "blocks/gallerylinkbutton.html"
+
+
+class GalleryImageItem(blocks.StructBlock):
+    image = ImageChooserBlock()
+    caption = blocks.RichTextBlock(blank=True)
+    buttons = blocks.StreamBlock([
+        ("page", GalleryPageButton()),
+        ("link", GalleryLinkButton())
+    ])
+
+    class Meta:
+        template = "blocks/galleryimageitem.html"
+
+
+class GalleryVideoItem(blocks.StructBlock):
+    video = EmbedBlock(max_width=1024, max_height=768)
+
+    class Meta:
+        template = "blocks/galleryvideoitem.html"
+
+
+class GalleryPageEndResult(Page):
+    galleryitems = StreamField([
+        ("image", GalleryImageItem()),
+        ("video", GalleryVideoItem())
+    ])
+    body = StreamField(
+        [
+            ("heading", blocks.CharBlock()),
+            ("paragraph", blocks.RichTextBlock()),
+        ]
+    )
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel("galleryitems"),
+        StreamFieldPanel("body"),
+    ]
+
+
+class GalleryBlock(blocks.StructBlock):
+    galleryitems = StreamField([
+        ("image", GalleryImageItem()),
+        ("video", GalleryVideoItem())
+    ])
+
+
+class NewPageEndResult(Page):
+    date = models.DateField(_("Post date"))
+    image = models.ForeignKey(
+        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
+    )
+    body = StreamField(
+        [
+            ("heading", blocks.CharBlock()),
+            ("paragraph", blocks.RichTextBlock()),
+            ("image", ImageChooserBlock()),
+            ("gallery", GalleryBlock()),
+        ]
+    )
+
+    subtitle = models.CharField(max_length=255, blank=True, null=True)
+    summary = RichTextField(blank=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField("summary"),
+        index.SearchField("body"),
+        index.SearchField("subtitle"),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel("date"),
+        ImageChooserPanel("image"),
+        StreamFieldPanel("body"),
+        MultiFieldPanel(
+            [
+                FieldPanel("subtitle"),
+                FieldPanel("summary"),
+            ],
+            heading="Optional extras",
+            classname="collapsed",
+        ),
+    ]

@@ -1,0 +1,37 @@
+{% extends "page.html" %}
+{% load wagtailcore_tags %}
+
+{% block inner %}
+<h1>{{ page.title }}</h1>
+
+<div class="my-5 row">
+    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            {% for slide in self.galleryitems %}
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner">
+            {% for slide in self.galleryitems %}
+            <div class="carousel-item gallery {% if forloop.first %} active{% endif %}">
+            {% include_block slide %}
+            </div>
+            {% endfor %}
+        </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    </div>
+</div>
+
+{% for block in self.body %}
+    <div class="my-3 block-{{ block.block_type }}">
+        {% include_block block %}
+    </div>
+{% endfor %}
+{% endblock %}
