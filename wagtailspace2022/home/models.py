@@ -19,6 +19,7 @@ from wagtail.search import index
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
 
+from roadrunner.fields import RoadRunnerField
 
 class HomePage(Page):
     pass
@@ -209,3 +210,9 @@ class NewPageEndResult(Page):
             classname="collapsed",
         ),
     ]
+
+
+class RoadrunnerPage(Page):
+    content = RoadRunnerField()
+
+    content_panels = Page.content_panels + [StreamFieldPanel("content")]
