@@ -128,11 +128,11 @@ class GalleryLinkButton(blocks.StructBlock):
 
 class GalleryImageItem(blocks.StructBlock):
     image = ImageChooserBlock()
-    caption = blocks.RichTextBlock(blank=True)
+    caption = blocks.RichTextBlock(required=False)
     buttons = blocks.StreamBlock([
         ("page", GalleryPageButton()),
         ("link", GalleryLinkButton())
-    ])
+    ], required=False)
 
     class Meta:
         template = "blocks/galleryimageitem.html"
@@ -164,10 +164,13 @@ class GalleryPageEndResult(Page):
 
 
 class GalleryBlock(blocks.StructBlock):
-    galleryitems = StreamField([
+    galleryitems = blocks.StreamBlock([
         ("image", GalleryImageItem()),
         ("video", GalleryVideoItem())
     ])
+
+    class Meta:
+        template = "blocks/galleryblock.html"
 
 
 class NewPageEndResult(Page):

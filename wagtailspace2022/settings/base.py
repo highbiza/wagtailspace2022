@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "wagtail.core",
     "modelcluster",
     "taggit",
+    "roadrunner",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

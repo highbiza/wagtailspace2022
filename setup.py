@@ -27,6 +27,8 @@ setup(
     install_requires=[
         'setuptools',
         'wagtail<3.0',
-        'django<4'
-    ]
+        'django<4',
+        'wagtail-roadrunner@git+https://github.com/highbiza/wagtail-roadrunner.git#egg=wagtail-roadrunner'
+    ],
+    dependency_links=['git+https://github.com/highbiza/wagtail-roadrunner.git#egg=wagtail-roadrunner']
 )
