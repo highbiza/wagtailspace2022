@@ -2,8 +2,5 @@
 {% load wagtailcore_tags %}
 
 {% block inner %}
-	{% for x in self.content %}
-		{% include_block x %}
-	{% endfor %}
-
+    {% include_block self.content %}
 {% endblock %}
